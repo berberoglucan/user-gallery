@@ -8,5 +8,7 @@ public interface UserService {
 
 	List<UserDTO> findAllUsers();
 	
+	List<UserDTO> findAllUsers(int pageNo, int pageSize, String sortBy);
+	
 	
 }
