@@ -17,4 +17,10 @@ public class GlobalExceptionHandler {
 		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);	
 	}
 	
+	@ExceptionHandler(IllegalFilterOption.class)
+	public ResponseEntity<ErrorResponse> handleCustomException(IllegalFilterOption exc) {
+		ErrorResponse errorResponse = new ErrorResponse(exc.getMessage(), HttpStatus.BAD_REQUEST, ZonedDateTime.now(ZoneId.of("UTC")));
+		return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);	
+	}
+	
 }

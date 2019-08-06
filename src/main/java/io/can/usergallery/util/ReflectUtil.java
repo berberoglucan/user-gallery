@@ -16,5 +16,11 @@ public class ReflectUtil {
 	public <T> String getClassNameForGivenType(Class<T> classType) {
 		return classType.getSimpleName();
 	}
-
+	
+	@SuppressWarnings({"rawtypes", "unchecked"})
+	public <E extends Enum> E getEnumFieldAsGivenString(String fieldName, Class<E> enumType) throws NoSuchFieldException, IllegalAccessException {
+		Field declaredField = enumType.getDeclaredField(fieldName);
+		declaredField.setAccessible(true);
+		return (E) declaredField.get(null);
+	}
 }
