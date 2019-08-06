@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.can.usergallery.dto.UserDTO;
-import io.can.usergallery.enums.EmailFilterPattern;
 import io.can.usergallery.service.UserService;
 
 @RestController
@@ -22,7 +21,6 @@ public class UserRestController {
 	
 	@GetMapping("/allUsers")
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
-		System.out.println(EmailFilterPattern.EXTENSION.name());
 		List<UserDTO> allUsers = userService.findAllUsers();
 		return ResponseEntity.ok(allUsers);
 	}

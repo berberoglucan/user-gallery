@@ -1,5 +1,8 @@
 package io.can.usergallery.model;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.CascadeType;
@@ -10,12 +13,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements Serializable{
+
+	private static final long serialVersionUID = 3279275776063664114L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +45,9 @@ public class User {
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "company_id")
 	private Company company;
+	
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "user")
+	private List<Album> albums = new ArrayList<>(); 
 
 	public User() {
 		super();
@@ -122,7 +131,7 @@ public class User {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, company, email, name, phone, userId, username, website);
+		return Objects.hash(address, albums, company, email, name, phone, userId, username, website);
 	}
 
 	@Override
@@ -134,16 +143,11 @@ public class User {
 			return false;
 		}
 		User other = (User) obj;
-		return Objects.equals(address, other.address) && Objects.equals(company, other.company)
-				&& Objects.equals(email, other.email) && Objects.equals(name, other.name)
-				&& Objects.equals(phone, other.phone) && Objects.equals(userId, other.userId)
-				&& Objects.equals(username, other.username) && Objects.equals(website, other.website);
-	}
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", name=" + name + ", username=" + username + ", email=" + email
-				+ ", address=" + address + ", phone=" + phone + ", website=" + website + ", company=" + company + "]";
+		return Objects.equals(address, other.address) && Objects.equals(albums, other.albums)
+				&& Objects.equals(company, other.company) && Objects.equals(email, other.email)
+				&& Objects.equals(name, other.name) && Objects.equals(phone, other.phone)
+				&& Objects.equals(userId, other.userId) && Objects.equals(username, other.username)
+				&& Objects.equals(website, other.website);
 	}
 
 }

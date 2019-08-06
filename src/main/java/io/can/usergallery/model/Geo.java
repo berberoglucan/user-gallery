@@ -76,9 +76,4 @@ public class Geo implements Serializable {
 		return Objects.equals(geoId, other.geoId) && Objects.equals(lat, other.lat) && Objects.equals(lng, other.lng);
 	}
 
-	@Override
-	public String toString() {
-		return "Geo [geoId=" + geoId + ", lat=" + lat + ", lng=" + lng + "]";
-	}
-
 }

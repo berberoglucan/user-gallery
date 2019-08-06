@@ -5,7 +5,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
@@ -48,13 +47,12 @@ public class FilterServiceImpl implements FilterService {
 			filterPattern = reflectUtil.getEnumFieldAsGivenString(filterPatternName.toUpperCase(Locale.ENGLISH),
 					EmailFilterPattern.class);
 		} catch (NoSuchFieldException | IllegalAccessException e) {
-			logger.error("Error", e);
 			throw new IllegalFilterOption(filterPatternName + " pattern is not find in email filter patterns");
 		}
 		String seperator = filterProperties.getSeperator();
 		String[] filterParamsArr = filterParams.replaceAll("[\\p{Punct}&&[^_-]]+", seperator).split(seperator);
 		Set<String> filterParamsSet = Arrays.stream(filterParamsArr)
-				.map(filterParam -> filterParam.toLowerCase(Locale.ENGLISH)).collect(Collectors.toCollection(LinkedHashSet::new));
+				.map(filterParam -> filterParam.toLowerCase(Locale.ENGLISH).trim()).collect(Collectors.toCollection(LinkedHashSet::new));
 		List<User> filteredUsers = userRepository
 				.findAll(UserSpecifications.findFilteredUsersByEmail(filterParamsSet, filterPattern));
 		return objectMapperUtils.mapAll(filteredUsers, UserDTO.class);

@@ -9,11 +9,17 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
+import io.can.usergallery.dto.AlbumDTO;
+import io.can.usergallery.dto.AlbumPhotosDTO;
 import io.can.usergallery.dto.UserDTO;
 import io.can.usergallery.model.Address;
+import io.can.usergallery.model.Album;
 import io.can.usergallery.model.Company;
 import io.can.usergallery.model.Geo;
+import io.can.usergallery.model.Photo;
 import io.can.usergallery.model.User;
+import io.can.usergallery.repository.AlbumRepository;
+import io.can.usergallery.repository.PhotoRepository;
 import io.can.usergallery.repository.UserRepository;
 import io.can.usergallery.util.BootstrapDataUtil;
 
@@ -24,6 +30,12 @@ public class UserGalleryApplication implements CommandLineRunner {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private AlbumRepository albumRepository;
+	
+	@Autowired
+	private PhotoRepository photoRepository;
+	
 	@Autowired
 	private BootstrapDataUtil bootstrapDataUtil;
 
@@ -62,7 +74,16 @@ public class UserGalleryApplication implements CommandLineRunner {
 		Optional<User> optionalUser = bootstrapDataUtil.fetchSingleDataWithHttpGetMethodGivenUrlForBootstrapDb(
 				"https://jsonplaceholder.typicode.com/users/1", UserDTO.class, User.class);
 		optionalUser.ifPresent(user -> userRepository.save(user));
-
+		
+		// bootstrap to db for albums
+		List<Album> albums = bootstrapDataUtil.fetchDatasWithHttpGetMethodGivenUrlForBootstrapDb("https://jsonplaceholder.typicode.com/albums", AlbumDTO.class, Album.class);
+		albumRepository.saveAll(albums);
+		
+		// bootstrap to db for photos
+		List<Photo> photos = bootstrapDataUtil.fetchDatasWithHttpGetMethodGivenUrlForBootstrapDb("https://jsonplaceholder.typicode.com/photos", AlbumPhotosDTO.class, Photo.class);
+		
+		photoRepository.saveAll(photos);
+		
 	}
 
 }

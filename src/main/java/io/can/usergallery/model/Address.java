@@ -14,7 +14,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "address")
@@ -25,7 +24,6 @@ public class Address implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "address_id")
-	@JsonIgnore
 	private Long addressId;
 
 	private String street;
@@ -119,12 +117,6 @@ public class Address implements Serializable {
 		return Objects.equals(addressId, other.addressId) && Objects.equals(city, other.city)
 				&& Objects.equals(geo, other.geo) && Objects.equals(street, other.street)
 				&& Objects.equals(suite, other.suite) && Objects.equals(zipCode, other.zipCode);
-	}
-
-	@Override
-	public String toString() {
-		return "Address [addressId=" + addressId + ", street=" + street + ", suite=" + suite + ", city=" + city
-				+ ", zipCode=" + zipCode + ", geo=" + geo + "]";
 	}
 
 }

@@ -1,5 +1,6 @@
 package io.can.usergallery.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -11,7 +12,9 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "company")
-public class Company {
+public class Company implements Serializable{
+
+	private static final long serialVersionUID = 3013411748496358166L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -84,12 +87,6 @@ public class Company {
 		Company other = (Company) obj;
 		return Objects.equals(bs, other.bs) && Objects.equals(catchPhrase, other.catchPhrase)
 				&& Objects.equals(companyId, other.companyId) && Objects.equals(name, other.name);
-	}
-
-	@Override
-	public String toString() {
-		return "Company [companyId=" + companyId + ", name=" + name + ", catchPhrase=" + catchPhrase + ", bs=" + bs
-				+ "]";
 	}
 
 }
