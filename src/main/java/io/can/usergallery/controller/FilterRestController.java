@@ -19,7 +19,8 @@ public class FilterRestController {
 
 	@Autowired
 	private FilterService filterService;
-
+	
+	// QUESTION 2 and 3
 	@PostMapping("/email/{filterParam}")
 	public ResponseEntity<List<UserDTO>> getFilteredUsersByEmail(@PathVariable("filterParam") String filterParam,
 			@RequestParam(name = "pattern", defaultValue = "extension") String filterPatternName) {

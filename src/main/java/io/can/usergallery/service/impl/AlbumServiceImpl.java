@@ -13,7 +13,6 @@ import io.can.usergallery.exception.UserNotFoundException;
 import io.can.usergallery.model.Album;
 import io.can.usergallery.model.Photo;
 import io.can.usergallery.repository.AlbumRepository;
-import io.can.usergallery.repository.PhotoRepository;
 import io.can.usergallery.repository.UserRepository;
 import io.can.usergallery.service.AlbumService;
 import io.can.usergallery.util.ObjectMapperUtils;
@@ -26,9 +25,6 @@ public class AlbumServiceImpl implements AlbumService {
 	
 	@Autowired 
 	private UserRepository userRepository;
-	
-	@Autowired
-	private PhotoRepository photoRepository;
 	
 	@Autowired
 	private ObjectMapperUtils objectMapperUtils;

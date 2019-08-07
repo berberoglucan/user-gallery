@@ -19,6 +19,8 @@ public class UserRestController {
 	@Autowired
 	private UserService userService;
 	
+	
+	// QUESTION 1
 	@GetMapping("/allUsers")
 	public ResponseEntity<List<UserDTO>> getAllUsers() {
 		List<UserDTO> allUsers = userService.findAllUsers();

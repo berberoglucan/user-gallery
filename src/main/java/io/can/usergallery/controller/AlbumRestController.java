@@ -21,12 +21,14 @@ public class AlbumRestController {
 	@Autowired
 	private AlbumService albumService;
 	
+	// QUESTION 4
 	@PutMapping(value="/userAlbums/{userId}")
 	public ResponseEntity<List<AlbumDTO>> getAlbumsByUserId(@PathVariable("userId") String userId) {
 		List<AlbumDTO> albums = albumService.findAlbumsByUserId(userId);
 		return ResponseEntity.ok(albums);
 	}
 	
+	// QUESTION 5
 	@PutMapping(value="/userAlbumsWithDetails/{userId}")
 	public ResponseEntity<List<AlbumPhotosDTO>> getAlbumsWithDetailsByUserId(@PathVariable("userId") String userId) {
 		List<AlbumPhotosDTO> albumsWithDetails = albumService.findAlbumsWithDetailsByUserId(userId);

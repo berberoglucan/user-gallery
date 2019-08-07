@@ -3,11 +3,14 @@ package io.can.usergallery;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import io.can.usergallery.dto.AlbumDTO;
 import io.can.usergallery.dto.AlbumPhotosDTO;
@@ -25,8 +28,11 @@ import io.can.usergallery.util.BootstrapDataUtil;
 
 @SpringBootApplication
 @EnableJpaRepositories
+@EnableScheduling
 public class UserGalleryApplication implements CommandLineRunner {
 
+	Logger logger = LoggerFactory.getLogger(UserGalleryApplication.class);
+	
 	@Autowired
 	private UserRepository userRepository;
 
@@ -49,6 +55,8 @@ public class UserGalleryApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		logger.info("Data bootstrap to db process is starting... Please wait until the process is completed");
+		
 		// manual bootstrap to db for users
 		Address address1 = new Address("512.Sk", "No:88", "Istanbul", "34200", new Geo("-37.3159", "81.1496"));
 		Company company1 = new Company("Romaguera-Crona", "Multi-layered client-server neural-net",
@@ -83,6 +91,8 @@ public class UserGalleryApplication implements CommandLineRunner {
 		List<Photo> photos = bootstrapDataUtil.fetchDatasWithHttpGetMethodGivenUrlForBootstrapDb("https://jsonplaceholder.typicode.com/photos", AlbumPhotosDTO.class, Photo.class);
 		
 		photoRepository.saveAll(photos);
+		
+		logger.info("Data bootstrap to db process is completed");
 		
 	}
 
