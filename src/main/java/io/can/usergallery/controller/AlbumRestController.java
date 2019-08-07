@@ -15,7 +15,7 @@ import io.can.usergallery.service.AlbumService;
 
 
 @RestController
-@RequestMapping("/albums")
+@RequestMapping("/album")
 public class AlbumRestController {
 
 	@Autowired
