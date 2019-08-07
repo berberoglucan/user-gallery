@@ -11,6 +11,7 @@ import io.can.usergallery.dto.AlbumPhotosDTO;
 import io.can.usergallery.exception.InvalidIdParameterException;
 import io.can.usergallery.exception.UserNotFoundException;
 import io.can.usergallery.model.Album;
+import io.can.usergallery.model.Photo;
 import io.can.usergallery.repository.AlbumRepository;
 import io.can.usergallery.repository.PhotoRepository;
 import io.can.usergallery.repository.UserRepository;
@@ -54,9 +55,9 @@ public class AlbumServiceImpl implements AlbumService {
 		if(!userRepository.existsById(numericUserId)) {
 			throw new UserNotFoundException("User is not found with the given user id: " + userId);
 		}
-		List<Album> albums =  albumRepository.findAlbumsWithDetailsByUserId(numericUserId);
-		
-		return  objectMapperUtils.mapAll(albums, AlbumPhotosDTO.class);
+		List<Photo> photos=  albumRepository.findAlbumsWithDetailsByUserId(numericUserId);
+	
+		return  objectMapperUtils.mapAll(photos, AlbumPhotosDTO.class);
 	}
 
 	

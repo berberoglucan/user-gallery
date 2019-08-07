@@ -19,69 +19,60 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "album")
-public class Album implements Serializable{
+public class Album implements Serializable {
 
 	private static final long serialVersionUID = 2930253238331503973L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "album_id")
 	private Long id;
-	
+
 	private String title;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
-	
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "album")
 	private List<Photo> photos = new ArrayList<>();
 
-
-	public Long getAlbumId() {
+	public Long getId() {
 		return id;
 	}
 
-
-	public void setAlbumId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
-
 
 	public String getTitle() {
 		return title;
 	}
 
-
 	public void setTitle(String title) {
 		this.title = title;
 	}
-
 
 	public User getUser() {
 		return user;
 	}
 
-
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
 	public List<Photo> getPhotos() {
 		return photos;
 	}
-
 
 	public void setPhotos(List<Photo> photos) {
 		this.photos = photos;
 	}
 
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, title, user);
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -92,9 +83,12 @@ public class Album implements Serializable{
 			return false;
 		}
 		Album other = (Album) obj;
-		return Objects.equals(id, other.id) && Objects.equals(title, other.title)
-				&& Objects.equals(user, other.user);
+		return Objects.equals(id, other.id) && Objects.equals(title, other.title) && Objects.equals(user, other.user);
 	}
 
-	
+	@Override
+	public String toString() {
+		return "Album [id=" + id + ", title=" + title + ", user=" + user + "]";
+	}
+
 }

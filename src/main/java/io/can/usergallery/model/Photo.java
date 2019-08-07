@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,7 +28,11 @@ public class Photo implements Serializable {
 	private String url;
 
 	private String thumbnailUrl;
-
+	
+	@ManyToOne
+	@JoinColumn(name="album_id")
+	private Album album;
+	
 	public Photo() {
 		super();
 	}
@@ -38,11 +44,11 @@ public class Photo implements Serializable {
 		this.thumbnailUrl = thumbnailUrl;
 	}
 
-	public Long getPhotoId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setPhotoId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -69,6 +75,14 @@ public class Photo implements Serializable {
 	public void setThumbnailUrl(String thumbnailUrl) {
 		this.thumbnailUrl = thumbnailUrl;
 	}
+	
+	public Album getAlbum() {
+		return album;
+	}
+	
+	public void setAlbum(Album album) {
+		this.album = album;
+	}
 
 	@Override
 	public int hashCode() {
@@ -86,6 +100,11 @@ public class Photo implements Serializable {
 		Photo other = (Photo) obj;
 		return Objects.equals(id, other.id) && Objects.equals(thumbnailUrl, other.thumbnailUrl)
 				&& Objects.equals(title, other.title) && Objects.equals(url, other.url);
+	}
+
+	@Override
+	public String toString() {
+		return "Photo [id=" + id + ", title=" + title + ", url=" + url + ", thumbnailUrl=" + thumbnailUrl + "]";
 	}
 
 }
