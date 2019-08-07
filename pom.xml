@@ -77,6 +77,8 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<defaultGoal>install</defaultGoal>
+		<finalName>user-gallery</finalName>
 	</build>
 
 </project>
